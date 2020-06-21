@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Converter</title>
+
+    <style>
+        body {
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            background-color: darkslategrey;
+            color: rgb(153, 153, 153);
+        }
+
+        textarea {
+            width: 350px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Binary Converter</h1>
+
+    <textarea name="" id="inText" cols="30" rows="10" placeholder="Type Text Here" onkeyup="convertToBinary()"></textarea>
+    <textarea name="" id="inBinary" cols="30" rows="10" placeholder="Type Binary Here" onkeyup="convertToText()"></textarea>
+    <script>
+        function convertToBinary() {
+            var words = document.getElementById("inText").value;
+            var binary = document.getElementById("inBinary");
+            binary.value = "";
+
+            for (var i = 0; i < words.length; i++) {
+                binary.value += (0b100000000 + words[i].charCodeAt(0)).toString(2).substring(1) + "  ";
+            }
+        }
+
+        function convertToText() {
+            var words = document.getElementById("inBinary").value.replace(/[^01]/g,"");
+            var binary = document.getElementById("inText");
+            binary = "";
+            var binlength = words.length-(words.length%8);
+
+            for (var i = 0; i < binlength; i=i+8) {
+                binary += String.fromCharCode(parseInt(words.substr(i,8),2));
+            }
+            document.getElementById("inText").value = binary;
+        }
+    </script>
+</body>
+</html>
